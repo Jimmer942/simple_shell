@@ -6,8 +6,10 @@
  * @sig_num: Reset handler to catch SIGINT next time.
  * Return: 0
  */
-void sigintHandler()
+void sigintHandler(int sig_num)
 {
+	(void)sig_num;
+
 	signal(SIGINT, sigintHandler);
 	write(STDOUT_FILENO, "\n$ ", 3);
 	fflush(stdout);

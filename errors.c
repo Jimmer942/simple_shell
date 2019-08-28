@@ -1,8 +1,14 @@
 #include "shell.h"
-
-void errors(int cont, char *var, char *com, char *name)
+/**
+ * errors - prints the error with it's type.
+ * @cont: number of commands.
+ * @var: command.
+ * @type: error of the command.
+ * @name: name of the exe.
+**/
+void errors(int cont, char *var, char *type, char *name)
 {
-	char *con, *a = "not found\n", *num;
+	char *con, *a = "not found", *num;
 	char *aux = ": ";
 	char *st = NULL;
 	int i;
@@ -11,22 +17,24 @@ void errors(int cont, char *var, char *com, char *name)
 	if (!_strcmp("exit", var))
 	{
 		a = "Illegal number: ";
-		num = com;
+		num = type;
 	}
+	else
+		num = "";
 
 	con = _itoa(cont);
 	_strcat(st, name);
 	_strcat(st, aux);
 	_strcat(st, con);
 	_strcat(st, aux);
-	_strcat(st, con);
 	_strcat(st, var);
+	_strcat(st, aux);
 	_strcat(st, a);
 	_strcat(st, num);
 	_strcat(st, "\n");
 	for (i = 0; st[i] != '\0'; i++)
 		;
 	free(con);
-	write(STDIN_FILENO, st, i);
+	write(STDERR_FILENO, st, i);
 	free(st);
 }

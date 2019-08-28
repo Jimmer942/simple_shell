@@ -3,11 +3,15 @@
  * run - execute command
  * @line2: command
  * @dpath:directories the path
+ * @cont: number of commands.
+ * @v: command.
+ * @t: error of the command.
+ * @n: name of the exe.
  * Return: 0
  */
-void run(char line2[], char *dpath[])
+int run(char line2[], char *dpath[], int cont, char *v, char *t, char *n)
 {
-	int x;
+	int x = 0, ex = 0;
 	char *dpathcmd;
 	char **argv = NULL;
 
@@ -16,222 +20,169 @@ void run(char line2[], char *dpath[])
 	splitSpace(argv, line2);
 	dpathcmd = checkPath(dpath, argv[0]);
 	if (dpathcmd == NULL)
-		write(1, ": not found\n", 12);
+		errors(cont, v, t, n);
 	else
-		execve(dpathcmd, argv, environ);
+		ex = execve(dpathcmd, argv, environ);
 	free(argv);
+	return (ex);
 }
 /**
- * runsemicolon - execute two command
+ * scolon - execute two command
  * @copy: comand complete
  * @dpath: directory path
+ * @cont: number of commands.
+ * @v: command.
+ * @t: error of the command.
+ * @n: name of the exe.
  * Return: 0
  */
-void runsemicolon(char copy[], char *dpath[])
+int scolon(char copy[], char *dpath[], int cont, char *v, char *t, char *n)
 {
-	int x, a, b;
+	int x = 0, a = 0, b = 0, ex = 0, status = 0;
 	char *dpathcmd, *ex1, *ex2;
 	char *ppp[2], **argv1 = NULL, **argv2 = NULL;
-	pid_t pid2;
+	pid_t pid2, wpid;
+	(void)wpid;
 
-	split(copy, ppp, ";");
-	a = _strlen(ppp[0]);
-	b = _strlen(ppp[1]);
-
-	ex1 = _calloc(a, sizeof(char));
-	ex2 = _calloc(b, sizeof(char));
-	_strcpy(ex1, ppp[0]);
-	_strcpy(ex2, ppp[1]);
-
-	x = (count(ex1, ' ')) + 2;
-	argv1 = _calloc(x, sizeof(char *));
-
-	splitSpace(argv1, ex1);
-	dpathcmd = checkPath(dpath, argv1[0]);
+	split(copy, ppp, ";"), a = _strlen(ppp[0]), b = _strlen(ppp[1]);
+	ex1 = _calloc(a, sizeof(char)), ex2 = _calloc(b, sizeof(char));
+	_strcpy(ex1, ppp[0]), _strcpy(ex2, ppp[1]);
+	x = (count(ex1, ' ')) + 2, argv1 = _calloc(x, sizeof(char *));
+	splitSpace(argv1, ex1), dpathcmd = checkPath(dpath, argv1[0]);
 	if (dpathcmd == NULL)
-		write(1, ": not found\n", 12);
+		errors(cont, v, t, n);
 	else
 	pid2 = fork();
 	if (!pid2)
 	{
-		execve(dpathcmd, argv1, environ);
+		if (execve(dpathcmd, argv1, environ) == -1)
+		{errors(cont, v, t, n);
+			return (0);
+		}
+		exit(EXIT_FAILURE);
 	}
-	else if	(pid2 < 0)
-	{
-		perror("fork");
-		exit(-1);
+	else if (pid2 < 0)
+	{errors(cont, v, t, n);
+		return (0);
 	}
 	else
 	{
-		wait(NULL);
+		do {wpid = waitpid(pid2, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-
 	x = (count(ex2, ' ')) + 2;
 	argv2 = _calloc(x, sizeof(char *));
-
-	splitSpace(argv2, ex2);
-	dpathcmd = checkPath(dpath, argv2[0]);
+	splitSpace(argv2, ex2), dpathcmd = checkPath(dpath, argv2[0]);
 	if (dpathcmd == NULL)
-		write(1, ": not found\n", 12);
+		errors(cont, v, t, n);
 	else
-		execve(dpathcmd, argv2, environ);
-
+		ex = execve(dpathcmd, argv2, environ);
+	return (ex);
 }
 /**
  * OO - execute two command
  * @copy: comand complete
  * @dpath: directory path
+ * @cont: number of commands.
+ * @v: command.
+ * @t: error of the command.
+ * @n: name of the exe.
  * Return: 0
  */
-void OO(char copy[], char *dpath[])
+int OO(char copy[], char *dpath[], int cont, char *v, char *t, char *n)
 {
-	int x, a, b;
+	int x = 0, a = 0, b = 0, ex = 0, status = 0;
 	char *dpathcmd, *ex1, *ex2;
 	char *ppp[2], **argv1 = NULL, **argv2 = NULL;
-	pid_t pid2;
+	pid_t pid2, wpid;
+	(void)wpid;
 
 	split(copy, ppp, "|");
-	a = _strlen(ppp[0]);
-	b = _strlen(ppp[1]);
-
-	ex1 = _calloc(a, sizeof(char));
-	ex2 = _calloc(b, sizeof(char));
-	_strcpy(ex1, ppp[0]);
-	_strcpy(ex2, ppp[1]);
-
-	x = (count(ex1, ' ')) + 2;
-	argv1 = _calloc(x, sizeof(char *));
-
-	splitSpace(argv1, ex1);
-	dpathcmd = checkPath(dpath, argv1[0]);
+	a = _strlen(ppp[0]), b = _strlen(ppp[1]);
+	ex1 = _calloc(a, sizeof(char)), ex2 = _calloc(b, sizeof(char));
+	_strcpy(ex1, ppp[0]), _strcpy(ex2, ppp[1]);
+	x = (count(ex1, ' ')) + 2, argv1 = _calloc(x, sizeof(char *));
+	splitSpace(argv1, ex1), dpathcmd = checkPath(dpath, argv1[0]);
 	if (dpathcmd == NULL)
-		write(1, ": not found\n", 12);
+		errors(cont, v, t, n);
 	else
 	pid2 = fork();
 	if (!pid2)
 	{
-		execve(dpathcmd, argv1, environ);
+		if (execve(dpathcmd, argv1, environ) == -1)
+		{errors(cont, v, t, n);
+			return (0);
+		}
+		exit(EXIT_FAILURE);
 	}
-	else if	(pid2 < 0)
-	{
-		perror("fork");
-		exit(-1);
+	else if (pid2 < 0)
+	{errors(cont, v, t, n);
+		return (0);
 	}
 	else
 	{
-		wait(NULL);
+		do {wpid = waitpid(pid2, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-
-	x = (count(ex2, ' ')) + 2;
-	argv2 = _calloc(x, sizeof(char *));
-
-	splitSpace(argv2, ex2);
-	dpathcmd = checkPath(dpath, argv2[0]);
+	x = (count(ex2, ' ')) + 2, argv2 = _calloc(x, sizeof(char *));
+	splitSpace(argv2, ex2), dpathcmd = checkPath(dpath, argv2[0]);
 	if (dpathcmd == NULL)
-		write(1, ": not found\n", 12);
+		errors(cont, v, t, n);
 	else
-		execve(dpathcmd, argv2, environ);
-
+		ex = execve(dpathcmd, argv2, environ);
+	return (ex);
 }
 
 /**
  * YY - execute two command
  * @copy: comand complete
  * @dpath: directory path
+ * @cont: number of commands.
+ * @v: command.
+ * @t: error of the command.
+ * @n: name of the exe.
  * Return: 0
  */
-void YY(char copy[], char *dpath[])
+int YY(char copy[], char *dpath[], int cont, char *v, char *t, char *n)
 {
-	int x, a, b;
+	int x = 0, a = 0, b = 0, ex = 0, status = 0;
 	char *dpathcmd, *ex1, *ex2;
 	char *ppp[2], **argv1 = NULL, **argv2 = NULL;
-	pid_t pid2;
+	pid_t pid2, wpid;
+	(void)wpid;
 
 	split(copy, ppp, "|");
-	a = _strlen(ppp[0]);
-	b = _strlen(ppp[1]);
-
-	ex1 = _calloc(a, sizeof(char));
-	ex2 = _calloc(b, sizeof(char));
-
-	_strcpy(ex1, ppp[0]);
-	_strcpy(ex2, ppp[1]);
-
-	x = (count(ex1, ' ')) + 2;
-	argv1 = _calloc(x, sizeof(char *));
-
-	splitSpace(argv1, ex1);
-	dpathcmd = checkPath(dpath, argv1[0]);
+	a = _strlen(ppp[0]), b = _strlen(ppp[1]);
+	ex1 = _calloc(a, sizeof(char)), ex2 = _calloc(b, sizeof(char));
+	_strcpy(ex1, ppp[0]), _strcpy(ex2, ppp[1]);
+	x = (count(ex1, ' ')) + 2, argv1 = _calloc(x, sizeof(char *));
+	splitSpace(argv1, ex1), dpathcmd = checkPath(dpath, argv1[0]);
 	if (dpathcmd == NULL)
-	{
-		write(1, ": not found\n", 12);
-		return;
-	}
+		errors(cont, v, t, n);
 	else
 	pid2 = fork();
 	if (!pid2)
 	{
-		execve(dpathcmd, argv1, environ);
+		if (execve(dpathcmd, argv1, environ) == -1)
+		{errors(cont, v, t, n);
+			return (0);
+		}
+		exit(EXIT_FAILURE);
 	}
-	else if	(pid2 < 0)
-	{
-		perror("fork");
-		exit(-1);
+	else if (pid2 < 0)
+	{errors(cont, v, t, n);
+		return (0);
 	}
 	else
 	{
-		wait(NULL);
+		do {wpid = waitpid(pid2, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-
-	x = (count(ex2, ' ')) + 2;
-	argv2 = _calloc(x, sizeof(char *));
-
-	splitSpace(argv2, ex2);
-	dpathcmd = checkPath(dpath, argv2[0]);
+	x = (count(ex2, ' ')) + 2, argv2 = _calloc(x, sizeof(char *));
+	splitSpace(argv2, ex2), dpathcmd = checkPath(dpath, argv2[0]);
 	if (dpathcmd == NULL)
-		write(1, ": not found\n", 12);
+		errors(cont, v, t, n);
 	else
-		execve(dpathcmd, argv2, environ);
-
-}
-
-/**
- * splitSpace - cut each space
- * @argv: array save cut
- * @line2: name of filecommand complete
- * Return: 0
- */
-void splitSpace(char *argv[], char line2[])
-{
-	char *puntero;
-	int i = 0;
-
-	puntero = strtok(line2, " ");
-	while (puntero)
-	{
-		argv[i] = puntero;
-		puntero = strtok(NULL, " ");
-		i++;
-	}
-	argv[i] = NULL;
-}
-/**
- * split - cut each delimiter
- * @line2: command
- * @slicedCommand: array save cut
- * @c: delimiter
- * Return: 0
- */
-void split(char line2[], char *slicedCommand[], char c[])
-{
-	char *puntero;
-	int i = 0;
-
-	puntero = strtok(line2, c);
-	while (puntero)
-	{
-		slicedCommand[i] = puntero;
-		puntero = strtok(NULL, c);
-		i++;
-	}
+		ex = execve(dpathcmd, argv2, environ);
+	return (ex);
 }

@@ -1,7 +1,11 @@
 #define T_B_SIZE 1024
 #define T_CUT " \t\r\n\a"
 #include "shell.h"
-
+/**
+ * split_command - split a line into tokens.
+ * @line: line to split.
+ * Return: An array of tokens.
+**/
 char **split_command(char *line)
 {
 	int buffer = T_B_SIZE, i = 0;

@@ -1,27 +1,30 @@
 #include "shell.h"
 /**
  * main - mini shell
+ * @ac: number of arguments.
+ * @av: arguments.
  * Return: Always 0.
  */
 int main(int ac, char **av)
 {
-	char *line, line2[200];
-	char **com;
-	pid_t pid;
-	int e, cont = 0;
+	char *line = NULL, line2[200];
+	char **com = NULL;
+	int e = 0, cont = 0;
 	(void)ac;
 
 	signal(SIGINT, sigintHandler);
 	while (1)
 	{
-		cont ++;
+		cont++;
 		write(STDIN_FILENO, "$ ", 2);
 		line = readc();
-		line = comments(line);
-		_cpy(line2, line);
-		com = split_command(line);
-		if(com[0] == NULL)
+		if (line[0] == '\n')
+		{
+			free(line);
 			continue;
+		}
+		line = comments(line), _cpy(line2, line);
+		com = split_command(line);
 		if (!_strcmp("env", com[0]))
 		{
 			_env();
@@ -31,25 +34,13 @@ int main(int ac, char **av)
 		{
 			e = salir(line, cont, com, av[0]);
 			if (e == -1)
-			continue;
+				continue;
 		}
-		pid = fork();
-		if (!pid)
-		{
-			execute(line2);
-			break;
-		}
-		else if (pid < 0)
-		{
-			perror("fork");
-			exit(-1);
-		}
+		if (line[0] != '/')
+			_fork(line2, cont, com[0], com[1], av[0]);
 		else
-		{
-			wait(NULL);
-		}
-		free(line);
-		free(com);
+			execute_command(com, line, cont, com[0], com[1], av[0]);
+		free(line), free(com);
 	}
 	return (0);
 }

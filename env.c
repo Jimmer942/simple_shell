@@ -1,9 +1,12 @@
 #include "shell.h"
-
+/**
+ * _env - prints the enviroment varibles.
+**/
 void _env(void)
 {
 	int i;
 	char *s = *environ;
+
 	for (i = 0; s; i++)
 	{
 		write(STDIN_FILENO, s, _strlen(s));

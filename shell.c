@@ -2,12 +2,16 @@
 /**
  * execute - find in command special caracter and run
  * @line2: command
+ * @cont: number of commands.
+ * @v: command.
+ * @t: error of the command.
+ * @n: name of the exe.
  * Return: 0
  */
-void execute(char line2[])
+int execute(char line2[], int cont, char *v, char *t, char *n)
 {
 	int lengthline2 = _strlen(line2);
-	int flaqsc;
+	int flaqsc = 0, ex = 0;
 	char *copy = NULL;
 	char *path;
 	char **dpath;
@@ -19,22 +23,23 @@ void execute(char line2[])
 	_strcpy(copy, line2);
 	if (flaqsc == 0)
 	{
-		run(line2, dpath);
+		ex = run(line2, dpath, cont, v, t, n);
 	}
 	else if (flaqsc == 1)
 	{
-		runsemicolon(copy, dpath);
+		ex = scolon(copy, dpath, cont, v, t, n);
 	}
 	else if (flaqsc == 3)
 	{
-		OO(copy, dpath);
+		ex = OO(copy, dpath, cont, v, t, n);
 	}
 	else if (flaqsc == 4)
 	{
-		YY(copy, dpath);
+		ex = YY(copy, dpath, cont, v, t, n);
 	}
 	free(path);
 	free(dpath);
+	return (ex);
 }
 /**
  * count - count number of delimiter in the command

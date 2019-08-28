@@ -24,21 +24,22 @@ int _strcmp(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
 char *_strchr(char *s, char c);
 char *_strcat(char *dest, char *src);
-void sigintHandler();
 int count(char line2[], char c);
 
 int space(char dig[]);
 int flaqs(char dig[]);
 void split(char line2[], char *slicedCommand[], char c[]);
 void splitSpace(char *argv[], char line2[]);
-void run(char line[], char *dpath[]);
-void runsemicolon(char copy[], char *dpath[]);
-void OO(char copy[], char *dpath[]);
-void YY(char copy[], char *dpath[]);
+int run(char line[], char *dpath[], int cont, char *v, char *t, char *n);
+int scolon(char copy[], char *dpath[], int cont, char *v, char *t, char *n);
+int OO(char copy[], char *dpath[], int cont, char *v, char *t, char *n);
+int YY(char copy[], char *dpath[], int cont, char *v, char *t, char *n);
+
+void sigintHandler(int sig_num);
 
 char _strtokmao(char *line, char *delim);
 
-void execute(char dig[]);
+int execute(char line2[], int cont, char *v, char *t, char *n);
 
 char *checkPath(char **dpath, char *argv0);
 char *gpath();
@@ -56,6 +57,7 @@ char **split_command(char *line);
 char *comments(char *line);
 int _isdigit(int c);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-int execute_command(char **args, char *p, int cont);
+int execute_command(char **args, char *p, int cont, char *v, char *t, char *n);
+int _fork(char *line, int cont, char *v, char *t, char *n);
 
 #endif

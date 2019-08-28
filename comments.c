@@ -1,5 +1,9 @@
 #include "shell.h"
-
+/**
+ * comments - remove comments from the command line.
+ * @line: command line.
+ * Return: the command line without comments.
+**/
 char *comments(char *line)
 {
 	int i, j = 0;
@@ -11,7 +15,7 @@ Here:
 	{
 		if (line[0] == compare[j])
 		{
-			for (i = 0; line [i] != '\0'; i++)
+			for (i = 0; line[i] != '\0'; i++)
 			{
 				aux = line[i + 1];
 				line[i] = aux;
@@ -20,13 +24,13 @@ Here:
 		}
 		j++;
 	}
-	for (i = 0; line [i] != '\0'; i++)
+	for (i = 0; line[i] != '\0'; i++)
 	{
-		if( line[i] == '#')
+		if (line[i] == '#')
 		{
 			line[i] = '\0';
 			break;
 		}
 	}
-	return(line);
+	return (line);
 }
