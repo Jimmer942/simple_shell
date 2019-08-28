@@ -16,7 +16,7 @@ int execute(char line2[], int cont, char *v, char *t, char *n)
 	char *path;
 	char **dpath;
 
-	copy = _calloc(lengthline2, sizeof(char));
+	copy = _calloc(lengthline2 + 1, sizeof(char));
 	path = gpath();
 	dpath = splitPath(path);
 	flaqsc = flaqs(line2);
@@ -38,6 +38,7 @@ int execute(char line2[], int cont, char *v, char *t, char *n)
 		ex = YY(copy, dpath, cont, v, t, n);
 	}
 	free(path);
+	free(copy);
 	free(dpath);
 	return (ex);
 }

@@ -47,7 +47,7 @@ char **splitPath(char *path);
 char *unePath(char *dpath, char *argv0);
 
 void _env(void);
-int salir(char *line, int cont, char **com, char *name);
+int salir(char *line, char *line2, int cont, char **com, char *name);
 
 void errors(int cont, char *var, char *com, char *name);
 char *_itoa(int n);
@@ -58,6 +58,6 @@ char *comments(char *line);
 int _isdigit(int c);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int execute_command(char **args, char *p, int cont, char *v, char *t, char *n);
-int _fork(char *line, int cont, char *v, char *t, char *n);
+int _fork(char *l, char **com, char *l2, int c, char *n);
 
 #endif

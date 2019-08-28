@@ -77,7 +77,6 @@ char *checkPath(char **dpath, char *argv0)
 			return (completline);
 		i++;
 	}
-
 	return (NULL);
 }
 /**
@@ -94,7 +93,7 @@ char *unePath(char *dpath, char *argv0)
 	dpathlen = _strlen(dpath);
 	argv0len = _strlen(argv0);
 	len = dpathlen + argv0len;
-	path_cmd = malloc(len + 1);
+	path_cmd = _calloc(len + 2, sizeof(char));
 	if (path_cmd == NULL)
 	{
 		write(1, "Error: malloc catpath\n", 22);

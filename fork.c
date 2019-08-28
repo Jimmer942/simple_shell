@@ -1,14 +1,14 @@
 #include "shell.h"
 /**
  * _fork - forks the process.
- * @line2: command line.
- * execute_command - exe.
- * @cont: number of commands.
- * @v: command.
- * @t: error of the command.
+ * @l2: command line.
+ * @l: line to free.
+ * @c: number of commands.
+ * @com: command.
  * @n: name of the exe.
+ * Return: an integer
 **/
-int _fork(char *line2, int cont, char *v, char *t, char *n)
+int _fork(char *l, char **com, char *l2, int c, char *n)
 {
 	pid_t pid = 0, wpid;
 	int status = 0;
@@ -16,16 +16,17 @@ int _fork(char *line2, int cont, char *v, char *t, char *n)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execute(line2, cont, v, t, n) == -1)
+		if (execute(l2, c, com[0], com[1], n) == -1)
 		{
-			errors(cont, v, t, n);
+			errors(c, com[0], com[1], n);
+			free(l), free(l2), free(com);
 			return (0);
 		}
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 	{
-		errors(cont, v, t, n);
+		errors(c, com[0], com[1], n);
 		return (0);
 	}
 	else
