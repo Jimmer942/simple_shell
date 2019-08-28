@@ -43,8 +43,8 @@ void runsemicolon(char copy[], char *dpath[])
 	_strcpy(ex1, ppp[0]);
 	_strcpy(ex2, ppp[1]);
 
-	x = (count(ex1, ' ')) + 1;
-	argv1 = _calloc(x, sizeof(char));
+	x = (count(ex1, ' ')) + 2;
+	argv1 = _calloc(x, sizeof(char *));
 
 	splitSpace(argv1, ex1);
 	dpathcmd = checkPath(dpath, argv1[0]);
@@ -66,8 +66,8 @@ void runsemicolon(char copy[], char *dpath[])
 		wait(NULL);
 	}
 
-	x = (count(ex2, ' ')) + 1;
-	argv2 = _calloc(x, sizeof(char));
+	x = (count(ex2, ' ')) + 2;
+	argv2 = _calloc(x, sizeof(char *));
 
 	splitSpace(argv2, ex2);
 	dpathcmd = checkPath(dpath, argv2[0]);
@@ -99,8 +99,8 @@ void OO(char copy[], char *dpath[])
 	_strcpy(ex1, ppp[0]);
 	_strcpy(ex2, ppp[1]);
 
-	x = (count(ex1, ' ')) + 1;
-	argv1 = _calloc(x, sizeof(char));
+	x = (count(ex1, ' ')) + 2;
+	argv1 = _calloc(x, sizeof(char *));
 
 	splitSpace(argv1, ex1);
 	dpathcmd = checkPath(dpath, argv1[0]);
@@ -122,8 +122,8 @@ void OO(char copy[], char *dpath[])
 		wait(NULL);
 	}
 
-	x = (count(ex2, ' ')) + 1;
-	argv2 = _calloc(x, sizeof(char));
+	x = (count(ex2, ' ')) + 2;
+	argv2 = _calloc(x, sizeof(char *));
 
 	splitSpace(argv2, ex2);
 	dpathcmd = checkPath(dpath, argv2[0]);
@@ -157,8 +157,8 @@ void YY(char copy[], char *dpath[])
 	_strcpy(ex1, ppp[0]);
 	_strcpy(ex2, ppp[1]);
 
-	x = (count(ex1, ' ')) + 1;
-	argv1 = _calloc(x, sizeof(char));
+	x = (count(ex1, ' ')) + 2;
+	argv1 = _calloc(x, sizeof(char *));
 
 	splitSpace(argv1, ex1);
 	dpathcmd = checkPath(dpath, argv1[0]);
@@ -183,8 +183,8 @@ void YY(char copy[], char *dpath[])
 		wait(NULL);
 	}
 
-	x = (count(ex2, ' ')) + 1;
-	argv2 = _calloc(x, sizeof(char));
+	x = (count(ex2, ' ')) + 2;
+	argv2 = _calloc(x, sizeof(char *));
 
 	splitSpace(argv2, ex2);
 	dpathcmd = checkPath(dpath, argv2[0]);
