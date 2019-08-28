@@ -46,9 +46,9 @@ char **splitPath(char *path);
 char *unePath(char *dpath, char *argv0);
 
 void _env(void);
-int salir(char *line, int cont);
+int salir(char *line, int cont, char **com, char *name);
 
-void errors(int cont, char *var, char *com);
+void errors(int cont, char *var, char *com, char *name);
 char *_itoa(int n);
 int _atoi(char *s);
 void *_calloc(unsigned int nmemb, unsigned int size);

@@ -7,11 +7,11 @@ char *readc(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0;
-	int i;
+	ssize_t i = 0;
 
 	i = getline(&line, &bufsize, stdin);
 	if (i == -1)
-		exit (0);
+		exit(0);
 	return (line);
 }
 /**

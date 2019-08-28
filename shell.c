@@ -8,10 +8,11 @@ void execute(char line2[])
 {
 	int lengthline2 = _strlen(line2);
 	int flaqsc;
-	char copy[lengthline2];
+	char *copy = NULL;
 	char *path;
 	char **dpath;
 
+	copy = _calloc(lengthline2, sizeof(char));
 	path = gpath();
 	dpath = splitPath(path);
 	flaqsc = flaqs(line2);
@@ -31,7 +32,7 @@ void execute(char line2[])
 	else if (flaqsc == 4)
 	{
 		YY(copy, dpath);
-	}	
+	}
 }
 /**
  * count - count number of delimiter in the command

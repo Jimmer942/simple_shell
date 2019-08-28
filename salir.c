@@ -1,9 +1,6 @@
 #include "shell.h"
-int salir(char *line, int cont)
+int salir(char *line, int cont, char **com, char *name)
 {
-	exit (0);
-
-	char **com;
 	int e;
 
 	com = split_command(line);
@@ -23,11 +20,9 @@ int salir(char *line, int cont)
 	}
 	else
 	{
-		errors(cont, com[0], com[1]);
+		errors(cont, com[0], com[1], name);
 		free(line);
 		free(com);
 		return (-1);
-		}
-
-
+	}
 }

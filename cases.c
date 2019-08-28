@@ -9,16 +9,16 @@ void run(char line2[], char *dpath[])
 {
 	int x;
 	char *dpathcmd;
+	char **argv = NULL;
 
 	x = (count(line2, ' ')) + 1;
-	char *argv[x];
-
+	argv = _calloc(x, sizeof(char));
 	splitSpace(argv, line2);
 	dpathcmd = checkPath(dpath, argv[0]);
 	if (dpathcmd == NULL)
 		write(1, ": not found\n", 12);
 	else
-		execve(dpathcmd, argv, NULL);
+		execve(dpathcmd, argv, environ);
 }
 /**
  * runsemicolon - execute two command
@@ -28,20 +28,22 @@ void run(char line2[], char *dpath[])
  */
 void runsemicolon(char copy[], char *dpath[])
 {
-	int x;
-	char *dpathcmd;
-	char *ppp[2];
+	int x, a, b;
+	char *dpathcmd, *ex1, *ex2;
+	char *ppp[2], **argv1 = NULL, **argv2 = NULL;
 	pid_t pid2;
 
 	split(copy, ppp, ";");
-	char ex1[_strlen(ppp[0])];
-	char ex2[_strlen(ppp[1])];
+	a = _strlen(ppp[0]);
+	b = _strlen(ppp[1]);
 
+	ex1 = _calloc(a, sizeof(char));
+	ex2 = _calloc(b, sizeof(char));
 	_strcpy(ex1, ppp[0]);
 	_strcpy(ex2, ppp[1]);
 
 	x = (count(ex1, ' ')) + 1;
-	char *argv1[x];
+	argv1 = _calloc(x, sizeof(char));
 
 	splitSpace(argv1, ex1);
 	dpathcmd = checkPath(dpath, argv1[0]);
@@ -51,7 +53,7 @@ void runsemicolon(char copy[], char *dpath[])
 	pid2 = fork();
 	if (!pid2)
 	{
-		execve(dpathcmd, argv1, NULL);
+		execve(dpathcmd, argv1, environ);
 	}
 	else if	(pid2 < 0)
 	{
@@ -64,14 +66,14 @@ void runsemicolon(char copy[], char *dpath[])
 	}
 
 	x = (count(ex2, ' ')) + 1;
-	char *argv2[x];
+	argv2 = _calloc(x, sizeof(char));
 
 	splitSpace(argv2, ex2);
 	dpathcmd = checkPath(dpath, argv2[0]);
 	if (dpathcmd == NULL)
 		write(1, ": not found\n", 12);
 	else
-		execve(dpathcmd, argv2, NULL);
+		execve(dpathcmd, argv2, environ);
 
 }
 /**
@@ -82,20 +84,22 @@ void runsemicolon(char copy[], char *dpath[])
  */
 void OO(char copy[], char *dpath[])
 {
-	int x;
-	char *dpathcmd;
-	char *ppp[2];
+	int x, a, b;
+	char *dpathcmd, *ex1, *ex2;
+	char *ppp[2], **argv1 = NULL, **argv2 = NULL;
 	pid_t pid2;
 
 	split(copy, ppp, "|");
-	char ex1[_strlen(ppp[0])];
-	char ex2[_strlen(ppp[1])];
+	a = _strlen(ppp[0]);
+	b = _strlen(ppp[1]);
 
+	ex1 = _calloc(a, sizeof(char));
+	ex2 = _calloc(b, sizeof(char));
 	_strcpy(ex1, ppp[0]);
 	_strcpy(ex2, ppp[1]);
 
 	x = (count(ex1, ' ')) + 1;
-	char *argv1[x];
+	argv1 = _calloc(x, sizeof(char));
 
 	splitSpace(argv1, ex1);
 	dpathcmd = checkPath(dpath, argv1[0]);
@@ -105,7 +109,7 @@ void OO(char copy[], char *dpath[])
 	pid2 = fork();
 	if (!pid2)
 	{
-		execve(dpathcmd, argv1, NULL);
+		execve(dpathcmd, argv1, environ);
 	}
 	else if	(pid2 < 0)
 	{
@@ -118,14 +122,14 @@ void OO(char copy[], char *dpath[])
 	}
 
 	x = (count(ex2, ' ')) + 1;
-	char *argv2[x];
+	argv2 = _calloc(x, sizeof(char));
 
 	splitSpace(argv2, ex2);
 	dpathcmd = checkPath(dpath, argv2[0]);
 	if (dpathcmd == NULL)
 		write(1, ": not found\n", 12);
 	else
-		execve(dpathcmd, argv2, NULL);
+		execve(dpathcmd, argv2, environ);
 
 }
 
@@ -137,20 +141,23 @@ void OO(char copy[], char *dpath[])
  */
 void YY(char copy[], char *dpath[])
 {
-	int x;
-	char *dpathcmd;
-	char *ppp[2];
+	int x, a, b;
+	char *dpathcmd, *ex1, *ex2;
+	char *ppp[2], **argv1 = NULL, **argv2 = NULL;
 	pid_t pid2;
 
-	split(copy, ppp, "&");
-	char ex1[_strlen(ppp[0])];
-	char ex2[_strlen(ppp[1])];
+	split(copy, ppp, "|");
+	a = _strlen(ppp[0]);
+	b = _strlen(ppp[1]);
+
+	ex1 = _calloc(a, sizeof(char));
+	ex2 = _calloc(b, sizeof(char));
 
 	_strcpy(ex1, ppp[0]);
 	_strcpy(ex2, ppp[1]);
 
 	x = (count(ex1, ' ')) + 1;
-	char *argv1[x];
+	argv1 = _calloc(x, sizeof(char));
 
 	splitSpace(argv1, ex1);
 	dpathcmd = checkPath(dpath, argv1[0]);
@@ -163,7 +170,7 @@ void YY(char copy[], char *dpath[])
 	pid2 = fork();
 	if (!pid2)
 	{
-		execve(dpathcmd, argv1, NULL);
+		execve(dpathcmd, argv1, environ);
 	}
 	else if	(pid2 < 0)
 	{
@@ -176,14 +183,14 @@ void YY(char copy[], char *dpath[])
 	}
 
 	x = (count(ex2, ' ')) + 1;
-	char *argv2[x];
+	argv2 = _calloc(x, sizeof(char));
 
 	splitSpace(argv2, ex2);
 	dpathcmd = checkPath(dpath, argv2[0]);
 	if (dpathcmd == NULL)
 		write(1, ": not found\n", 12);
 	else
-		execve(dpathcmd, argv2, NULL);
+		execve(dpathcmd, argv2, environ);
 
 }
 

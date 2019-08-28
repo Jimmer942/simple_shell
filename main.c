@@ -3,11 +3,13 @@
  * main - mini shell
  * Return: Always 0.
  */
-int main(void)
+int main(int ac, char **av)
 {
-	char *line, *line2;
+	char *line, line2[200];
+	char **com;
 	pid_t pid;
 	int e, cont = 0;
+	(void)ac;
 
 	signal(SIGINT, sigintHandler);
 	while (1)
@@ -15,19 +17,19 @@ int main(void)
 		cont ++;
 		write(STDIN_FILENO, "$ ", 2);
 		line = readc();
-		line2 = _cpy(line2, line);
+		line = comments(line);
+		_cpy(line2, line);
+		com = split_command(line);
 		if(line[0] == '\n')
 			continue;
-		line = comments(line);
-		
-		if (!_strcmp("env", line2))
+		if (!_strcmp("env", com[0]))
 		{
 			_env();
 			continue;
 		}
-		if (!_strcmp("exit", line2))
+		if (!_strcmp("exit", com[0]))
 		{
-			e = salir(line2, cont);
+			e = salir(line, cont, com, av[0]);
 			if (e == -1)
 			continue;
 		}
