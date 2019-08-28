@@ -16,7 +16,7 @@ Gcc (gnu compiler collection) version 4.8
 ##### Included .c .h source code
 main.c - main code Loop
 shell.c - execute source code
-shell.h - prototypes 
+shell.h - prototypes
 cespecial.c - source code look for the type of delimiter
 cases.c - source code run according delimiter
 ctrlc.c - source code for avoid the ctrl+c
@@ -36,7 +36,7 @@ our program have the  same output as sh
 use path for list the files
 
 **$ echo l**
-use path for found echo and execute file 
+use path for found echo and execute file
 
 **$ /bin/ls**
 for list the files in the current directory or
