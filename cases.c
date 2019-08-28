@@ -11,14 +11,15 @@ void run(char line2[], char *dpath[])
 	char *dpathcmd;
 	char **argv = NULL;
 
-	x = (count(line2, ' ')) + 1;
-	argv = _calloc(x, sizeof(char));
+	x = (count(line2, ' ')) + 2;
+	argv = _calloc(x, sizeof(char *));
 	splitSpace(argv, line2);
 	dpathcmd = checkPath(dpath, argv[0]);
 	if (dpathcmd == NULL)
 		write(1, ": not found\n", 12);
 	else
 		execve(dpathcmd, argv, environ);
+	free(argv);
 }
 /**
  * runsemicolon - execute two command

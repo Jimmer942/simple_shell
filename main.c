@@ -20,7 +20,7 @@ int main(int ac, char **av)
 		line = comments(line);
 		_cpy(line2, line);
 		com = split_command(line);
-		if(line[0] == '\n')
+		if(com[0] == NULL)
 			continue;
 		if (!_strcmp("env", com[0]))
 		{
@@ -49,6 +49,7 @@ int main(int ac, char **av)
 			wait(NULL);
 		}
 		free(line);
+		free(com);
 	}
 	return (0);
 }

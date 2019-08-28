@@ -1,7 +1,7 @@
 #ifndef shell_l
 #define shell_l
 
-#define PATH_MAX 512
+#define PATH_MAX 4096
 #include <limits.h>
 #include <signal.h>
 #include <errno.h>

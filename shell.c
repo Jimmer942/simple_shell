@@ -33,6 +33,8 @@ void execute(char line2[])
 	{
 		YY(copy, dpath);
 	}
+	free(path);
+	free(dpath);
 }
 /**
  * count - count number of delimiter in the command

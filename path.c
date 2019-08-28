@@ -12,7 +12,7 @@ char *gpath()
 	{
 		if (e[i][0] == 80 && e[i][3] == 72 && e[i][4] == 61)
 		{
-			s = malloc(PATH_MAX);
+			s = _calloc(PATH_MAX, sizeof(char));
 			if (s == NULL)
 			{
 				write(1, "Error: failed malloc gpath\n", 27);
@@ -42,7 +42,7 @@ char **splitPath(char *path)
 	char *carp;
 	int i = 0;
 
-	d = malloc(PATH_MAX);
+	d = _calloc(PATH_MAX, sizeof(char));
 	if (d == NULL)
 	{
 		write(1, "Error: failed malloc splitPath\n", 31);
