@@ -43,18 +43,7 @@ for list the files in the current directory or
 
 **$ /bin/pwd**
 for display the current directory address
-### FlowChart
 
-```flow
-st=>start: Start
-op=>operation: Loop infinite 
-cond=>condition: Successful Yes or No?
-e=>end: To admin
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
 ### How to exit
 You have two forms to exit from micro_shell, just type exit
 
