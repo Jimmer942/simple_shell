@@ -5,33 +5,31 @@
  */
 int main(void)
 {
-	char *line, *line2, *l;
+	char *line, *line2;
 	pid_t pid;
-	int s, e, cont = 0;
-	char **com;
+	int e, cont = 0;
 
-Here:
 	signal(SIGINT, sigintHandler);
 	while (1)
 	{
 		cont ++;
-		write(STDIN_FILENO, "ShellMan$ ", 10);
+		write(STDIN_FILENO, "$ ", 2);
 		line = readc();
+		line2 = _cpy(line2, line);
 		if(line[0] == '\n')
-			goto Here;
+			continue;
 		line = comments(line);
-		_cpy(line2, line);
-		com = split_command(line);
-		if (!_strcmp("env", com[0]))
+		
+		if (!_strcmp("env", line2))
 		{
 			_env();
 			continue;
 		}
-		if (!_strcmp("exit", com[0]))
+		if (!_strcmp("exit", line2))
 		{
-			e = salir(line, com, cont);
+			e = salir(line2, cont);
 			if (e == -1)
-				goto Here;
+			continue;
 		}
 		pid = fork();
 		if (!pid)
@@ -49,7 +47,6 @@ Here:
 			wait(NULL);
 		}
 		free(line);
-		free(com);
 	}
 	return (0);
 }

@@ -2,8 +2,7 @@
 
 int execute_command(char **args, char *p, int cont)
 {
-	pid_t pid, wpid;
-	int status, i = 0, j;
+	pid_t pid;
 	char us[128] = "/bin";
 	char *aux = "/b";
 
@@ -37,9 +36,7 @@ int execute_command(char **args, char *p, int cont)
 	}
 	else
 	{
-		do {
-			wpid = waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		wait(NULL);
 	}
 
 	return(1);

@@ -5,7 +5,7 @@ void errors(int cont, char *var, char *com)
 	char *s = "hsh: ", *con, *a = "not found\n", *num;
 	char *aux = ": ";
 	char st[300];
-	int i, flag = 0;
+	int i;
 
 	if (!_strcmp("exit", var))
 	{
