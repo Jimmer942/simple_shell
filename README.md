@@ -1,4 +1,4 @@
-# Simple Shell : :tw-1f3b1:
+# Simple Shell
 ## Description
 A simple UNIX command interpreter. mini_shell is the user interface to communicate with the operative system services.
 
@@ -62,6 +62,6 @@ You have two forms to exit from micro_shell, just type exit
 **You can press CTRL + d**
 
 ## AUTHORS
-__
+
 **Edgar Quintero** <fogniebla@hotmail.com>
 **Jimmer Hernandez** <jichernandezbe@unal.edu.co>
