@@ -20,10 +20,6 @@ int execute_command(char **args, char *p, int cont, char *v, char *t, char *n)
 	{
 		strcpy(us, p);
 	}
-	else if (p[0] == aux[0] && p[1] != aux[1])
-	{
-		strcat(us, p);
-	}
 	else
 	{
 		strcat(us, "/");
