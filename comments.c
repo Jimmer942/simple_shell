@@ -4,7 +4,7 @@
  * @line: command line.
  * Return: the command line without comments.
 **/
-char *comments(char *line, int cont, char *v, char *t, char *n)
+char *comments(char *line)
 {
 	int i, j = 0;
 	char *compare = ". \t\r\a";
@@ -26,7 +26,7 @@ Here:
 	}
 	for (i = 0; line[i] != '\0'; i++)
 	{
-		if (line[i] == '#' && (line[i - 1] == ' ' || line[i - 1] == '\t'))
+		if (line[i] == '#')
 		{
 			line[i] = '\0';
 			break;
