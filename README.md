@@ -1,5 +1,7 @@
 # Simple Shell
+
 ## Description
+
 A simple UNIX command interpreter. mini_shell is the user interface to communicate with the operative system services.
 
 This project consists in the creation of a simple shell
