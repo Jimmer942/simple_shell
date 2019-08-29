@@ -27,7 +27,7 @@ int main(int ac, char **av)
 		_cpy(line2, line);
 		com = split_command(line);
 		if (!_strcmp("env", com[0]))
-		{_env();
+		{_env(com);
 			free(line), free(line2), free(com);
 			continue;
 		}

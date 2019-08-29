@@ -2,11 +2,13 @@
 /**
  * _env - prints the enviroment varibles.
 **/
-void _env(void)
+void _env(char **com)
 {
 	int i;
 	char *s = *environ;
 
+	if (com[1] != NULL)
+		return;
 	for (i = 0; s; i++)
 	{
 		write(STDIN_FILENO, s, _strlen(s));
