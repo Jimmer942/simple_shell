@@ -33,8 +33,8 @@ int main(int ac, char **av)
 		}
 		if (!_strcmp("exit", com[0]))
 		{
-			e = salir(line, line2, cont, com, av[0]);
-			if (e == -1)
+			e = salir(line, line2, cont, com, av[0], e);
+			if (e == 2)
 			{
 				free(line), free(line2), free(com);
 				continue;

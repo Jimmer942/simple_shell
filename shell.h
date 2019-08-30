@@ -47,7 +47,7 @@ char **splitPath(char *path);
 char *unePath(char *dpath, char *argv0);
 
 void _env(char **com);
-int salir(char *line, char *line2, int cont, char **com, char *name);
+int salir(char *line, char *line2, int cont, char **com, char *name, int e);
 
 void errors(int cont, char *var, char *com, char *name);
 char *_itoa(int n);
