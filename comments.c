@@ -7,7 +7,7 @@
 char *comments(char *line)
 {
 	int i, j = 0;
-	char *compare = ". \t\r\a";
+	char *compare = " \t\r\a";
 	char aux;
 
 Here:

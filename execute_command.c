@@ -18,7 +18,7 @@ int execute_command(char **args, char *p, int cont, char *v, char *t, char *n)
 
 	if (p[0] == aux[0] && p[1] == aux[1])
 	{
-		strcpy(us, p);
+		_strcpy(us, p);
 	}
 	else
 	{
