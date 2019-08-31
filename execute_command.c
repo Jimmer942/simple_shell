@@ -22,8 +22,8 @@ int execute_command(char **args, char *p, int cont, char *v, char *t, char *n)
 	}
 	else
 	{
-		strcat(us, "/");
-		strcat(us, p);
+		_strcat(us, "/");
+		_strcat(us, p);
 	}
 	pid = fork();
 	if (pid == 0)
